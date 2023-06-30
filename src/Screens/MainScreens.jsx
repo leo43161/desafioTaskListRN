@@ -1,7 +1,9 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
 import CheckBox from 'expo-checkbox';
 import React, { useState } from 'react'
 import TopBar from '../Components/TopBar';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 const MainScreens = ({ taskList }) => {
     const [list, setList] = useState(taskList);
@@ -30,13 +32,18 @@ const MainScreens = ({ taskList }) => {
             <Text style={styles.titleTask}>Todas las tareas</Text>
             <View style={styles.taskListContainer}>
                 <View style={styles.taskContainer}>
-                    <CheckBox
-                        style={styles.checkboxTask}
-                        value={isChecked}
-                        onValueChange={setChecked}
-                        color={isChecked ? '#213555' : undefined}
-                    />
-                    <Text style={styles.taskText}>Tarea 1</Text>
+                    <View style={styles.taskTitleCheck}>
+                        <CheckBox
+                            style={styles.checkboxTask}
+                            value={isChecked}
+                            onValueChange={setChecked}
+                            color={isChecked ? '#213555' : undefined}
+                        />
+                        <Text style={styles.taskText}>Tarea 1</Text>
+                    </View>
+                    <TouchableOpacity style={styles.taskDeletedButton}>
+                        <FontAwesomeIcon icon={faTrashAlt} size={18} color='#F5EFE7' />
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -48,7 +55,7 @@ export default MainScreens
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        paddingTop: 30,
+        paddingTop: 35,
         backgroundColor: "#F5EFE7"
     },
     taskListContainer: {
@@ -58,10 +65,19 @@ const styles = StyleSheet.create({
     taskContainer: {
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "space-between",
         backgroundColor: "#4F709C",
         borderRadius: 10,
         paddingVertical: 13,
         paddingHorizontal: 15,
+    },
+    taskTitleCheck: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    taskTitleCheck: {
+        flexDirection: "row",
+        alignItems: "center",
     },
     taskText: {
         fontSize: 20,
@@ -79,5 +95,12 @@ const styles = StyleSheet.create({
         marginRight: 10,
         width: 23,
         height: 23,
+    },
+    taskDeletedButton: {
+        borderRadius: 10,
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#DC3545",
     },
 })

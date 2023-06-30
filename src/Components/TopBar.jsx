@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         width: "100%",
         paddingHorizontal: 10,
-        height: 40,
         flex: 1,
+        maxHeight: 45,
+        minHeight: 15,
     },
     inputTask: {
         borderRadius: 10,
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         backgroundColor: "#213555",
-        colorTint: "#FFFFFF",
+        color: "#FFFFFF",
     },
     addTextButton: {
         color: "#FFFFFF",

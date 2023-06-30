@@ -27,9 +27,11 @@ const styles = StyleSheet.create({
     topBarContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginBottom: 15,
         width: "100%",
         paddingHorizontal: 10,
         height: 40,
+        flex: 1,
     },
     inputTask: {
         borderRadius: 10,

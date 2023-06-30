@@ -43,6 +43,9 @@ const MainScreens = ({ taskList }) => {
         ]);
         setInputAdd("")
     }
+    const checkboxHandler = ({ check, id }) => {
+        
+    }
     return (
         <View style={styles.mainContainer}>
             <TopBar
@@ -62,8 +65,8 @@ const MainScreens = ({ taskList }) => {
                     <View style={styles.taskTitleCheck}>
                         <CheckBox
                             style={styles.checkboxTask}
-                            value={isChecked}
-                            onValueChange={setChecked}
+                            value={true}
+                            onValueChange={(value) => completedHandler({ check: value, id: 1 })}
                             color={isChecked ? '#213555' : undefined}
                         />
                         <Text style={styles.taskText}>Tarea 1</Text>

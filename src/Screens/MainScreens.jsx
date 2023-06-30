@@ -1,9 +1,30 @@
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Text, FlatList } from 'react-native'
 import CheckBox from 'expo-checkbox';
 import React, { useState } from 'react'
 import TopBar from '../Components/TopBar';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+
+
+
+const ItemTask = ({ task }) => {
+    return (
+        <View style={styles.taskContainer}>
+            <View style={styles.taskTitleCheck}>
+                <CheckBox
+                    style={styles.checkboxTask}
+                    value={task.completed}
+                    /* onValueChange={setChecked} */
+                    color={task.completed ? '#213555' : undefined}
+                />
+                <Text style={styles.taskText}>{task.task}</Text>
+            </View>
+            <TouchableOpacity style={styles.taskDeletedButton}>
+                <FontAwesomeIcon icon={faTrashAlt} size={18} color='#F5EFE7' />
+            </TouchableOpacity>
+        </View>
+    )
+}
 
 const MainScreens = ({ taskList }) => {
     const [list, setList] = useState(taskList);
@@ -30,7 +51,13 @@ const MainScreens = ({ taskList }) => {
                 onAddTask={onAddTask}
             ></TopBar>
             <Text style={styles.titleTask}>Todas las tareas</Text>
+
             <View style={styles.taskListContainer}>
+                <FlatList
+                    data={list}
+                    keyExtractor={(task) => task.id}
+                    renderItem={({ item }) => ItemTask({ task: item })}
+                />
                 <View style={styles.taskContainer}>
                     <View style={styles.taskTitleCheck}>
                         <CheckBox
@@ -70,6 +97,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingVertical: 13,
         paddingHorizontal: 15,
+        marginBottom: 15
     },
     taskTitleCheck: {
         flexDirection: "row",

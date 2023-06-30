@@ -39,5 +39,4 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         backgroundColor: "#F5EFE7"
     },
-
 })

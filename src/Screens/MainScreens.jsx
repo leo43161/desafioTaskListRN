@@ -1,5 +1,6 @@
 import { StyleSheet, TextInput, View, TouchableOpacity, Text } from 'react-native'
 import React, { useState } from 'react'
+import TopBar from '../Components/TopBar';
 
 const MainScreens = ({ taskList }) => {
     const [list, setList] = useState(taskList);
@@ -19,17 +20,11 @@ const MainScreens = ({ taskList }) => {
     }
     return (
         <View style={styles.mainContainer}>
-            <View style={styles.topBarContainer}>
-                <TextInput
-                    placeholder="Comprar vacío"
-                    style={styles.inputTask}
-                    value={inputAdd}
-                    onChangeText={setInputAdd}
-                />
-                <TouchableOpacity style={styles.addButton} onPress={onAddTask}>
-                    <Text style={styles.addTextButton}>Agregar</Text>
-                </TouchableOpacity>
-            </View>
+            <TopBar
+                inputAdd={inputAdd}
+                setInputAdd={setInputAdd}
+                onAddTask={onAddTask}
+            ></TopBar>
             <View style={styles.topBarContainer}>
             </View>
         </View>
@@ -44,31 +39,5 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         backgroundColor: "#F5EFE7"
     },
-    topBarContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: "100%",
-        paddingHorizontal: 10,
-        height: 40,
-    },
-    inputTask: {
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        flex: 3,
-        backgroundColor: "#D8C4B6"
-    },
-    addButton: {
-        borderRadius: 10,
-        marginLeft: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1,
-        backgroundColor: "#213555",
-        colorTint: "#FFFFFF",
-    },
-    addTextButton: {
-        color: "#FFFFFF",
-        fontSize: 15,
-        fontWeight: "bold",
-    },
+
 })

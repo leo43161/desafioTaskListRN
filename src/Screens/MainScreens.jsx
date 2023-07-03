@@ -5,19 +5,17 @@ import TopBar from '../Components/TopBar';
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
-
-
-const ItemTask = ({ task }) => {
+const ItemTask = ({ task, checkboxHandler }) => {
     return (
         <View style={styles.taskContainer}>
             <View style={styles.taskTitleCheck}>
                 <CheckBox
                     style={styles.checkboxTask}
                     value={task.completed}
-                    /* onValueChange={setChecked} */
+                    onValueChange={(value) => checkboxHandler({ check: value, id: task.id })}
                     color={task.completed ? '#213555' : undefined}
                 />
-                <Text style={styles.taskText}>{task.task}</Text>
+                <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>{task.task}</Text>
             </View>
             <TouchableOpacity style={styles.taskDeletedButton}>
                 <FontAwesomeIcon icon={faTrashAlt} size={18} color='#F5EFE7' />
@@ -29,7 +27,6 @@ const ItemTask = ({ task }) => {
 const MainScreens = ({ taskList }) => {
     const [list, setList] = useState(taskList);
     const [inputAdd, setInputAdd] = useState("");
-    const [isChecked, setChecked] = useState(false);
 
     const onAddTask = () => {
         setList([
@@ -44,7 +41,24 @@ const MainScreens = ({ taskList }) => {
         setInputAdd("")
     }
     const checkboxHandler = ({ check, id }) => {
-        
+        const taskSelected = list.find(task => task.id === id);
+        const remainTasks = list.filter(taskList => taskList.id !== taskSelected.id);
+        const orderedList = [
+            ...remainTasks,
+            {
+                ...taskSelected,
+                completed: check
+            }
+        ].sort(function (a, b) {
+            if (a.completed && !b.completed) {
+                return 1;
+            }
+            if (!a.completed && b.completed) {
+                return -1;
+            }
+            return 0;
+        })
+        setList(orderedList);
     }
     return (
         <View style={styles.mainContainer}>
@@ -59,22 +73,8 @@ const MainScreens = ({ taskList }) => {
                 <FlatList
                     data={list}
                     keyExtractor={(task) => task.id}
-                    renderItem={({ item }) => ItemTask({ task: item })}
+                    renderItem={({ item }) => ItemTask({ task: item, checkboxHandler })}
                 />
-                <View style={styles.taskContainer}>
-                    <View style={styles.taskTitleCheck}>
-                        <CheckBox
-                            style={styles.checkboxTask}
-                            value={true}
-                            onValueChange={(value) => completedHandler({ check: value, id: 1 })}
-                            color={isChecked ? '#213555' : undefined}
-                        />
-                        <Text style={styles.taskText}>Tarea 1</Text>
-                    </View>
-                    <TouchableOpacity style={styles.taskDeletedButton}>
-                        <FontAwesomeIcon icon={faTrashAlt} size={18} color='#F5EFE7' />
-                    </TouchableOpacity>
-                </View>
             </View>
         </View>
     )
@@ -114,6 +114,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "500",
         color: "#F5EFE7",
+    },
+    taskTextCompleted: {
+        color: "#D8C4B6",
+        textDecorationLine:"line-through"
     },
     titleTask: {
         fontSize: 18,

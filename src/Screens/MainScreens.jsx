@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text, Modal, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { faXmark, faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import TopBar from '../Components/TopBar';
 import Lista from '../Components/Lista';
+import ModalTask from '../Components/ModalTask';
 
 const MainScreens = () => {
     const [list, setList] = useState([]);
@@ -61,40 +61,16 @@ const MainScreens = () => {
                 onAddTask={onAddTask}
             ></TopBar>
             <Text style={styles.titleTask}>Todas las tareas</Text>
-            <Lista checkboxHandler={checkboxHandler} taskHandler={taskHandler} list={list}></Lista>
-            <Modal
-                animationType='slide'
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <View style={styles.modalTaskContainer}>
-                            <Text style={styles.taskText}>{taskActive.task}</Text>
-                        </View>
-                        <View style={styles.modalButtonContainer}>
-                            <Pressable
-                                style={[styles.button, styles.buttonClose]}
-                                onPress={() => setModalVisible(!modalVisible)}>
-                                <FontAwesomeIcon icon={faXmark} size={20} color='#F5EFE7'></FontAwesomeIcon>
-                            </Pressable>
-                            <Pressable
-                                style={[styles.button, styles.buttonComplete]}
-                                onPress={() => setModalVisible(!modalVisible)}>
-                                <FontAwesomeIcon icon={faCheck} size={20} color='#F5EFE7'></FontAwesomeIcon>
-                            </Pressable>
-                            <Pressable
-                                style={[styles.button, styles.buttonDelete]}
-                                onPress={() => setModalVisible(!modalVisible)}>
-                                <FontAwesomeIcon icon={faTrash} size={20} color='#F5EFE7'></FontAwesomeIcon>
-                            </Pressable>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+            <Lista
+                checkboxHandler={checkboxHandler}
+                taskHandler={taskHandler}
+                list={list}
+            />
+            <ModalTask
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                taskActive={taskActive}
+            />
         </View>
     )
 }
@@ -171,14 +147,5 @@ const styles = StyleSheet.create({
     },
     buttonDelete: {
         backgroundColor: '#DC3545',
-    },
-    textStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
     },
 })

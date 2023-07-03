@@ -4,14 +4,15 @@ import ItemTask from './ItemTask'
 
 const Lista = ({
     checkboxHandler,
-    list
+    list,
+    taskHandler
 }) => {
     return (
         <View style={styles.taskListContainer}>
             <FlatList
                 data={list}
                 keyExtractor={(task) => task.id}
-                renderItem={({ item }) => ItemTask({ task: item, checkboxHandler })}
+                renderItem={({ item }) => ItemTask({ task: item, checkboxHandler, taskHandler })}
             />
         </View>
     )

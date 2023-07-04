@@ -1,16 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity, Pressable } from 'react-native'
 import CheckBox from 'expo-checkbox';
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react'
 
-
 const ItemTask = ({
     task,
-    checkboxHandler,
+    taskChangeHandler,
     taskHandler,
-    deletedHandler
+    deletedModalHandler
 }) => {
     return (
         <Pressable onPress={() => taskHandler(task)}>
@@ -19,12 +17,12 @@ const ItemTask = ({
                     <CheckBox
                         style={styles.checkboxTask}
                         value={task.completed}
-                        onValueChange={(value) => checkboxHandler({ check: value, id: task.id })}
+                        onValueChange={(value) => taskChangeHandler({ key: "completed", value, id: task.id })}
                         color={task.completed ? '#213555' : undefined}
                     />
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>{task.task}</Text>
                 </View>
-                <TouchableOpacity style={styles.taskDeletedButton} onPress={() => deletedHandler(task)}>
+                <TouchableOpacity style={styles.taskDeletedButton} onPress={() => deletedModalHandler(task)}>
                     <FontAwesomeIcon icon={faTrash} size={18} color='#F5EFE7' />
                 </TouchableOpacity>
             </View>

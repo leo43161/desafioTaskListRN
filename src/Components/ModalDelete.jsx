@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Modal, Pressable } from 'react-native'
-import React from 'react' 
+import React from 'react'
 
 const ModalDeleted = ({
     modalDeleteVisible,
@@ -30,7 +30,9 @@ const ModalDeleted = ({
                         </Pressable>
                         <Pressable
                             style={[styles.button, styles.buttonDelete]}
-                            onPress={deleteTaskHandler}>
+                            /* onPress={() => taskChangeHandler({ key: "deleted", value: true, id: taskDeleted.id })} */
+                            onPress={deleteTaskHandler}
+                        >
                             <Text style={styles.buttonText}>Eliminar</Text>
                         </Pressable>
                     </View>

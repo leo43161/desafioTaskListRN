@@ -6,8 +6,18 @@ import React from 'react'
 const ModalTask = ({
     modalTaskVisible,
     setModalTaskVisible,
-    taskActive
+    taskActive,
+    taskChangeHandler,
+    deletedModalHandler
 }) => {
+    const onCheckHandler = () => {
+        taskChangeHandler({ key: "completed", value: true, id: taskActive.id });
+        setModalTaskVisible(!modalTaskVisible);
+    }
+    const onDeleteHandler = () => {
+        deletedModalHandler(taskActive);
+        setModalTaskVisible(!modalTaskVisible);
+    }
     return (
         <Modal
             animationType='slide'
@@ -30,12 +40,12 @@ const ModalTask = ({
                         </Pressable>
                         <Pressable
                             style={[styles.button, styles.buttonComplete]}
-                            onPress={() => setModalTaskVisible(!modalTaskVisible)}>
+                            onPress={onCheckHandler}>
                             <FontAwesomeIcon icon={faCheck} size={20} color='#F5EFE7'></FontAwesomeIcon>
                         </Pressable>
                         <Pressable
                             style={[styles.button, styles.buttonDelete]}
-                            onPress={() => setModalTaskVisible(!modalTaskVisible)}>
+                            onPress={onDeleteHandler}>
                             <FontAwesomeIcon icon={faTrash} size={20} color='#F5EFE7'></FontAwesomeIcon>
                         </Pressable>
                     </View>

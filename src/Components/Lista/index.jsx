@@ -3,17 +3,17 @@ import React from 'react'
 import ItemTask from './ItemTask'
 
 const Lista = ({
-    checkboxHandler,
+    taskChangeHandler,
     list,
     taskHandler,
-    deletedHandler
+    deletedModalHandler
 }) => {
     return (
         <View style={styles.taskListContainer}>
             <FlatList
                 data={list}
                 keyExtractor={(task) => task.id}
-                renderItem={({ item }) => ItemTask({ task: item, checkboxHandler, taskHandler, deletedHandler })}
+                renderItem={({ item }) => ItemTask({ task: item, taskChangeHandler, taskHandler, deletedModalHandler })}
             />
         </View>
     )

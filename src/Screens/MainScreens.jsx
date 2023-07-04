@@ -26,14 +26,14 @@ const MainScreens = () => {
         setInputAdd("")
     }
 
-    const checkboxHandler = ({ check, id }) => {
+    const taskChangeHandler = ({ key, value, id }) => {
         const taskSelected = list.find(task => task.id === id);
         const remainTasks = list.filter(taskList => taskList.id !== taskSelected.id);
         const orderedList = [
             ...remainTasks,
             {
                 ...taskSelected,
-                completed: check
+                [key]: value
             }
         ].sort(function (a, b) {
             if (a.completed && !b.completed) {
@@ -52,7 +52,7 @@ const MainScreens = () => {
         setTaskActive(task);
     }
 
-    const deletedHandler = (task) => {
+    const deletedModalHandler = (task) => {
         setModalDeleteVisible(true);
         setTaskDeleted(task);
     }
@@ -60,8 +60,7 @@ const MainScreens = () => {
     const deleteTaskHandler = () => {
         const taskFilters = list.filter((item) => item.id !== taskDeleted.id);
         setList(taskFilters);
-        console.log(taskFilters);
-        console.log(list);
+        setModalDeleteVisible(false);
     }
 
     return (
@@ -73,15 +72,17 @@ const MainScreens = () => {
             ></TopBar>
             <Text style={styles.titleTask}>Todas las tareas</Text>
             <Lista
-                checkboxHandler={checkboxHandler}
+                taskChangeHandler={taskChangeHandler}
                 taskHandler={taskHandler}
                 list={list}
-                deletedHandler={deletedHandler}
+                deletedModalHandler={deletedModalHandler}
             />
             <ModalTask
                 modalTaskVisible={modalTaskVisible}
                 setModalTaskVisible={setModalTaskVisible}
                 taskActive={taskActive}
+                taskChangeHandler={taskChangeHandler}
+                deletedModalHandler={deletedModalHandler}
             />
             <ModalDeleted
                 modalDeleteVisible={modalDeleteVisible}

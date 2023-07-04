@@ -94,7 +94,15 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderRadius: 10,
         backgroundColor: '#D8C4B6',
-        width: "100%"
+        width: "100%",
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
     },
     modalButtonContainer: {
         justifyContent: 'space-around',

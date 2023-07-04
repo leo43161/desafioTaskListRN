@@ -4,6 +4,7 @@ import TopBar from '../Components/TopBar';
 import Lista from '../Components/Lista';
 import ModalTask from '../Components/ModalTask';
 import ModalDeleted from '../Components/ModalDelete';
+import uuid from 'react-native-uuid';
 
 const MainScreens = () => {
     const [list, setList] = useState([]);
@@ -17,13 +18,13 @@ const MainScreens = () => {
         setList([
             ...list,
             {
-                id: list.length + 1,
+                id: uuid.v4(),
                 task: inputAdd,
                 completed: false,
                 deleted: false
             }
         ]);
-        setInputAdd("")
+        setInputAdd("");
     }
 
     const taskChangeHandler = ({ key, value, id }) => {

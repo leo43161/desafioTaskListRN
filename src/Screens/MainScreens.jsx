@@ -1,14 +1,17 @@
-import { StyleSheet, View, Text} from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import React, { useState } from 'react'
 import TopBar from '../Components/TopBar';
 import Lista from '../Components/Lista';
 import ModalTask from '../Components/ModalTask';
+import ModalDeleted from '../Components/ModalDelete';
 
 const MainScreens = () => {
     const [list, setList] = useState([]);
     const [inputAdd, setInputAdd] = useState("");
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalTaskVisible, setModalTaskVisible] = useState(false);
+    const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
     const [taskActive, setTaskActive] = useState({});
+    const [taskDeleted, setTaskDeleted] = useState({});
 
     const onAddTask = () => {
         setList([
@@ -45,11 +48,21 @@ const MainScreens = () => {
     }
 
     const taskHandler = (task) => {
-        setModalVisible(true);
+        setModalTaskVisible(true);
         setTaskActive(task);
     }
 
+    const deletedHandler = (task) => {
+        setModalDeleteVisible(true);
+        setTaskDeleted(task);
+    }
 
+    const deleteTaskHandler = () => {
+        const taskFilters = list.filter((item) => item.id !== taskDeleted.id);
+        setList(taskFilters);
+        console.log(taskFilters);
+        console.log(list);
+    }
 
     return (
         <View style={styles.mainContainer}>
@@ -63,11 +76,18 @@ const MainScreens = () => {
                 checkboxHandler={checkboxHandler}
                 taskHandler={taskHandler}
                 list={list}
+                deletedHandler={deletedHandler}
             />
             <ModalTask
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
+                modalTaskVisible={modalTaskVisible}
+                setModalTaskVisible={setModalTaskVisible}
                 taskActive={taskActive}
+            />
+            <ModalDeleted
+                modalDeleteVisible={modalDeleteVisible}
+                setModalDeleteVisible={setModalDeleteVisible}
+                taskDeleted={taskDeleted}
+                deleteTaskHandler={deleteTaskHandler}
             />
         </View>
     )

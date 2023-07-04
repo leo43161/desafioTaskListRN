@@ -9,7 +9,8 @@ import React from 'react'
 const ItemTask = ({
     task,
     checkboxHandler,
-    taskHandler
+    taskHandler,
+    deletedHandler
 }) => {
     return (
         <Pressable onPress={() => taskHandler(task)}>
@@ -23,7 +24,7 @@ const ItemTask = ({
                     />
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>{task.task}</Text>
                 </View>
-                <TouchableOpacity style={styles.taskDeletedButton} onPress={() => taskHandler(task)}>
+                <TouchableOpacity style={styles.taskDeletedButton} onPress={() => deletedHandler(task)}>
                     <FontAwesomeIcon icon={faTrash} size={18} color='#F5EFE7' />
                 </TouchableOpacity>
             </View>

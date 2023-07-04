@@ -1,42 +1,37 @@
 import { StyleSheet, Text, View, Modal, Pressable } from 'react-native'
-import { faXmark, faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import React from 'react'
+import React from 'react' 
 
-const ModalTask = ({
-    modalTaskVisible,
-    setModalTaskVisible,
-    taskActive
+const ModalDeleted = ({
+    modalDeleteVisible,
+    setModalDeleteVisible,
+    taskDeleted,
+    deleteTaskHandler
 }) => {
     return (
         <Modal
             animationType='slide'
             transparent={true}
-            visible={modalTaskVisible}
+            visible={modalDeleteVisible}
             onRequestClose={() => {
-                setModalTaskVisible(!modalTaskVisible);
+                setModalDeleteVisible(!modalDeleteVisible);
             }}
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
+                    <Text style={styles.titleText}>Desea eliminar esta tarea?</Text>
                     <View style={styles.modalTaskContainer}>
-                        <Text style={styles.taskText}>{taskActive.task}</Text>
+                        <Text style={styles.taskText}>{taskDeleted.task}</Text>
                     </View>
                     <View style={styles.modalButtonContainer}>
                         <Pressable
                             style={[styles.button, styles.buttonClose]}
-                            onPress={() => setModalTaskVisible(!modalTaskVisible)}>
-                            <FontAwesomeIcon icon={faXmark} size={20} color='#F5EFE7'></FontAwesomeIcon>
-                        </Pressable>
-                        <Pressable
-                            style={[styles.button, styles.buttonComplete]}
-                            onPress={() => setModalTaskVisible(!modalTaskVisible)}>
-                            <FontAwesomeIcon icon={faCheck} size={20} color='#F5EFE7'></FontAwesomeIcon>
+                            onPress={() => setModalDeleteVisible(!modalDeleteVisible)}>
+                            <Text style={styles.buttonText}>Cancelar</Text>
                         </Pressable>
                         <Pressable
                             style={[styles.button, styles.buttonDelete]}
-                            onPress={() => setModalTaskVisible(!modalTaskVisible)}>
-                            <FontAwesomeIcon icon={faTrash} size={20} color='#F5EFE7'></FontAwesomeIcon>
+                            onPress={deleteTaskHandler}>
+                            <Text style={styles.buttonText}>Eliminar</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -45,7 +40,7 @@ const ModalTask = ({
     )
 }
 
-export default ModalTask
+export default ModalDeleted
 
 const styles = StyleSheet.create({
     /* Modal Styles */
@@ -53,6 +48,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "500",
         color: "#213555",
+    },
+    titleText: {
+        fontSize: 21,
+        fontWeight: "500",
+        color: "#F5EFE7",
+        marginBottom: 10
+    },
+    buttonText: {
+        fontSize: 20,
+        fontWeight: "500",
+        color: "#F5EFE7",
     },
     centeredView: {
         flex: 1,

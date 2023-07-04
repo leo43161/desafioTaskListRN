@@ -57,8 +57,9 @@ const MainScreens = () => {
         setTaskDeleted(task);
     }
 
-    const deleteTaskHandler = () => {
-        const taskFilters = list.filter((item) => item.id !== taskDeleted.id);
+    const deleteTaskHandler = (id = null) => {
+        const idDeleted = id ? id : taskDeleted.id;
+        const taskFilters = list.filter((item) => item.id !== idDeleted);
         setList(taskFilters);
         setModalDeleteVisible(false);
     }
@@ -85,6 +86,7 @@ const MainScreens = () => {
                 taskHandler={taskHandler}
                 list={list}
                 deletedModalHandler={deletedModalHandler}
+                deleteTaskHandler={deleteTaskHandler}
             />
             <ModalTask
                 modalTaskVisible={modalTaskVisible}

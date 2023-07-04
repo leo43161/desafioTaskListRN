@@ -6,14 +6,21 @@ const Lista = ({
     taskChangeHandler,
     list,
     taskHandler,
-    deletedModalHandler
+    deletedModalHandler,
+    deleteTaskHandler
 }) => {
     return (
         <View style={styles.taskListContainer}>
             <FlatList
                 data={list}
                 keyExtractor={(task) => task.id}
-                renderItem={({ item }) => ItemTask({ task: item, taskChangeHandler, taskHandler, deletedModalHandler })}
+                renderItem={({ item }) => ItemTask({
+                    task: item,
+                    taskChangeHandler,
+                    taskHandler,
+                    deletedModalHandler,
+                    deleteTaskHandler
+                })}
             />
         </View>
     )

@@ -31,7 +31,7 @@ const ModalDeleted = ({
                         <Pressable
                             style={[styles.button, styles.buttonDelete]}
                             /* onPress={() => taskChangeHandler({ key: "deleted", value: true, id: taskDeleted.id })} */
-                            onPress={deleteTaskHandler}
+                            onPress={() => deleteTaskHandler()}
                         >
                             <Text style={styles.buttonText}>Eliminar</Text>
                         </Pressable>

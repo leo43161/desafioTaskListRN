@@ -8,7 +8,8 @@ const ItemTask = ({
     task,
     taskChangeHandler,
     taskHandler,
-    deletedModalHandler
+    deletedModalHandler,
+    deleteTaskHandler
 }) => {
     return (
         <Pressable onPress={() => taskHandler(task)}>
@@ -22,7 +23,7 @@ const ItemTask = ({
                     />
                     <Text style={[styles.taskText, task.completed && styles.taskTextCompleted]}>{task.task}</Text>
                 </View>
-                <TouchableOpacity style={styles.taskDeletedButton} onPress={() => deletedModalHandler(task)}>
+                <TouchableOpacity style={styles.taskDeletedButton} onPress={() => task.completed ? deleteTaskHandler(task.id) : deletedModalHandler(task)}>
                     <FontAwesomeIcon icon={faTrash} size={18} color='#F5EFE7' />
                 </TouchableOpacity>
             </View>

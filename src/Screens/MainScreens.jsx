@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import TopBar from '../Components/TopBar';
 import Lista from '../Components/Lista';
@@ -62,6 +62,10 @@ const MainScreens = () => {
         setList(taskFilters);
         setModalDeleteVisible(false);
     }
+    const deleteCompletedHandler = () => {
+        const taskFilters = list.filter((item) => item.completed !== true);
+        setList(taskFilters);
+    }
 
     return (
         <View style={styles.mainContainer}>
@@ -70,7 +74,12 @@ const MainScreens = () => {
                 setInputAdd={setInputAdd}
                 onAddTask={onAddTask}
             ></TopBar>
-            <Text style={styles.titleTask}>Todas las tareas</Text>
+            <View style={styles.titleTaskContainer}>
+                <Text style={styles.titleTask}>Todas las tareas</Text>
+                <TouchableOpacity style={styles.taskDeletedButton} onPress={deleteCompletedHandler}>
+                    <Text style={styles.textButton}>Eliminar completadas</Text>
+                </TouchableOpacity>
+            </View>
             <Lista
                 taskChangeHandler={taskChangeHandler}
                 taskHandler={taskHandler}
@@ -99,12 +108,30 @@ export default MainScreens
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        paddingTop: 35,
+        paddingTop: 40,
         backgroundColor: "#F5EFE7"
+    },
+    titleTaskContainer: {
+        flexDirection: "row",
+        paddingHorizontal: 11,
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 13,
     },
     titleTask: {
         fontSize: 18,
-        marginBottom: 10,
-        paddingLeft: 10
+    },
+    textButton: {
+        color: "#FFFFFF",
+        fontSize: 13,
+        fontWeight: "bold",
+    },
+    taskDeletedButton: {
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        padding: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#DC3545",
     },
 })
